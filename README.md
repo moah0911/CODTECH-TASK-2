@@ -27,3 +27,5 @@ This Python script reads a dataset from a CSV file, analyzes it, and generates a
    - **ReportLab** for PDF creation and styling.
 
 ---
+Output : ![image](https://github.com/user-attachments/assets/ca70a8be-7955-4770-aa54-317d69a31228)
+
