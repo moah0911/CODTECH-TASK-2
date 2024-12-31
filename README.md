@@ -1,28 +1,29 @@
 # CODTECH-TASK-2
-### Overview of Student Grade Manager Program
+### Description for GitHub
 
-This Python program implements a **Student Grade Manager** that allows users to track and manage student grades across multiple subjects. It provides functionality to add grades, calculate averages, assign letter grades, calculate GPA, and display a summary of all grades and statistics. The program operates through a simple text-based interface and uses a class to manage the data.
+---
 
-### Key Features:
-1. **Add Grades**: Users can input grades for different subjects. If a grade for a subject already exists, the new grade is added to the list of grades for that subject.
-2. **Calculate Average**: The program calculates the overall average across all subjects and grades.
-3. **Letter Grade Calculation**: Based on the average grade, a corresponding letter grade is determined (A, B, C, D, or F).
-4. **GPA Calculation**: A GPA is calculated based on the average grade using a predefined scale.
-5. **Display Grades and Summary**: Users can view the grades entered for each subject and get a summary, including the average, letter grade, and GPA.
-6. **Error Handling**: It checks that the entered grades are valid numbers and within the acceptable range (0-100).
+**Title**: Data Analysis and PDF Report Generation with Enhanced Table Display  
 
-### Class Structure:
-- **StudentGradeManager**: Contains methods for adding grades, calculating averages, letter grades, GPA, and displaying grades and summaries.
-  - `add_grade(subject, grade)`: Adds a grade to a specified subject.
-  - `calculate_average()`: Calculates the average grade across all subjects.
-  - `get_letter_grade(average)`: Determines the letter grade based on the average.
-  - `calculate_gpa(average)`: Converts the average grade to a GPA score.
-  - `display_grades()`: Displays the grades for each subject.
-  - `display_summary()`: Displays the grades, overall average, letter grade, and GPA.
+**Description**:  
+This Python script reads a dataset from a CSV file, analyzes it, and generates a visually formatted PDF report. The report includes a table showcasing the first 10 rows of data with enhanced styling for clarity and readability. The table is created using the **ReportLab** library, leveraging its `Table` and `TableStyle` features for professional formatting.
 
-### Example Use Case:
-1. Add grades for subjects (e.g., Math, Science, History).
-2. Calculate the overall average and determine the corresponding letter grade and GPA.
-3. View all entered grades and the detailed summary of the student's performance.
+---
 
-This program is useful for managing academic performance, providing a structured way to track and evaluate grades and GPA.
+**Features**:
+1. **Data Input**:
+   - Reads a CSV file containing global data (e.g., country names, death rates, population, etc.).
+   
+2. **PDF Report Generation**:
+   - Creates a PDF document displaying the dataset in a structured table format.
+   - Styled headers, alternating row colors, and gridlines improve readability.
+
+3. **Customizable**:
+   - Easily adjust the number of rows displayed in the report.
+   - Modify table styles to match your requirements.
+
+4. **Libraries Used**:
+   - **pandas** for data handling and manipulation.
+   - **ReportLab** for PDF creation and styling.
+
+---
