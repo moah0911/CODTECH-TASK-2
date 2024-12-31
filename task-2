@@ -1,89 +1,60 @@
-class StudentGradeManager:
-    def __init__(self):
-        self.grades = {}
+import pandas as pd
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib import colors
 
-    def add_grade(self, subject, grade):
-        if subject in self.grades:
-            self.grades[subject].append(grade)
-        else:
-            self.grades[subject] = [grade]
+# File paths
+input_file = r"C:\Users\gowth\hello\python projects\CODTECH\data.csv"  # CSV file path
+output_pdf = "improved_report.pdf"  # Output PDF file
 
-    def calculate_average(self):
-        total = sum(sum(grades) for grades in self.grades.values())
-        count = sum(len(grades) for grades in self.grades.values())
-        return total / count if count != 0 else 0
+# Step 1: Read Data
+def read_data(file_path):
+    try:
+        data = pd.read_csv(file_path)
+        return data
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return None
 
-    def get_letter_grade(self, average):
-        if average >= 90:
-            return 'A'
-        elif average >= 80:
-            return 'B'
-        elif average >= 70:
-            return 'C'
-        elif average >= 60:
-            return 'D'
-        else:
-            return 'F'
+# Step 2: Create PDF with Table
+def create_pdf_with_table(data, output_path):
+    try:
+        # Create PDF
+        pdf = SimpleDocTemplate(output_path, pagesize=letter)
 
-    def calculate_gpa(self, average):
-        if average >= 90:
-            return 10.0
-        elif average >= 80:
-            return 9.0
-        elif average >= 70:
-            return 8.0
-        elif average >= 60:
-            return 7.0
-        elif average >= 50:
-            return 6.0
-        elif average >= 40:
-            return 5.0
-        else:
-            return 0.0
+        # Prepare data for the table
+        columns = list(data.columns)
+        rows = [columns] + data.head(10).values.tolist()  # Include column headers and first 10 rows
 
-    def display_grades(self):
-        for subject, grades in self.grades.items():
-            print(f"{subject}: {grades}")
+        # Create Table
+        table = Table(rows)
 
-    def display_summary(self):
-        self.display_grades()
-        average = self.calculate_average()
-        letter_grade = self.get_letter_grade(average)
-        gpa = self.calculate_gpa(average)
-        print(f"\nOverall Average: {average:.2f}")
-        print(f"Letter Grade: {letter_grade}")
-        print(f"GPA: {gpa:.2f}")
+        # Style the Table
+        style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ])
+        table.setStyle(style)
 
-# Main program
-def main():
-    manager = StudentGradeManager()
+        # Build PDF
+        pdf.build([table])
+        print(f"PDF report generated: {output_path}")
+    except Exception as e:
+        print(f"Error creating PDF: {e}")
 
-    while True:
-        print("\n1. Add Grade")
-        print("2. Display Grades")
-        print("3. Display Summary")
-        print("4. Exit")
-        choice = input("Enter your choice: ")
-
-        if choice == '1':
-            subject = input("Enter subject name: ")
-            try:
-                grade = float(input("Enter grade: "))
-                if 0 <= grade <= 100:
-                    manager.add_grade(subject, grade)
-                else:
-                    print("Grade must be between 0 and 100.")
-            except ValueError:
-                print("Invalid input. Please enter a numeric grade.")
-        elif choice == '2':
-            manager.display_grades()
-        elif choice == '3':
-            manager.display_summary()
-        elif choice == '4':
-            print("Exiting the program.")
-            break
-        else:
-            print("Invalid choice. Please try again.")
-
+# Main Program
 if __name__ == "__main__":
-    main()
+    print("Reading data...")
+    data = read_data(input_file)
+
+    if data is not None:
+        print("Creating PDF report...")
+        create_pdf_with_table(data, output_pdf)
+    else:
+        print("Failed to process the data.")
